@@ -1,0 +1,12 @@
+{
+  "info": { "name": "E-Commerce Backend", "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json" },
+  "item": [
+    { "name": "Register User", "request": { "method": "POST", "header": [], "url": { "raw": "http://localhost:8080/api/users/register" }, "body": { "mode": "raw", "raw": "{\"name\":\"Alice\",\"email\":\"alice@example.com\",\"password\":\"secret123\"}" } } },
+    { "name": "Login", "request": { "method": "POST", "url": "http://localhost:8080/api/users/login", "body": { "mode": "raw", "raw": "{\"email\":\"alice@example.com\",\"password\":\"secret123\"}" } } },
+    { "name": "List Products", "request": { "method": "GET", "url": "http://localhost:8080/api/products?page=0&size=10" } },
+    { "name": "Add To Cart", "request": { "method": "POST", "url": "http://localhost:8080/api/cart/add/1?userId=1", "body": { "mode": "raw", "raw": "{\"quantity\":2}" } } },
+    { "name": "View Cart", "request": { "method": "GET", "url": "http://localhost:8080/api/cart?userId=1" } },
+    { "name": "Checkout", "request": { "method": "POST", "url": "http://localhost:8080/api/orders/checkout?userId=1", "body": { "mode": "raw", "raw": "{\"paymentMode\":\"UPI\"}" } } },
+    { "name": "User Orders", "request": { "method": "GET", "url": "http://localhost:8080/api/orders?userId=1" } }
+  ]
+}
