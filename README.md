@@ -261,3 +261,14 @@ Base URL: http://localhost:8080/api
 ### ✅ Run Unit Tests
 ```bash
 mvn test
+```
+---
+
+## 🧰 Tools Used
+- Spring Boot DevTools
+- Lombok
+- Spring Web
+- Spring Data JPA
+- Spring Security
+- MySQL Driver
+- Logback for Logging
