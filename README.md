@@ -158,3 +158,106 @@ mvn spring-boot:run
 ```bash
 Base URL: http://localhost:8080/api
 ```
+
+## 📖 API Documentation
+
+### 🧍 User APIs
+| Method | Endpoint | Description | Role |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/users/register` | Register new user | Public |
+| `POST` | `/api/users/login` | Login user | Public |
+| `GET` | `/api/users/{id}` | Get user details | Authenticated |
+| `PUT` | `/api/users/{id}` | Update user profile | Authenticated |
+| `DELETE` | `/api/users/{id}` | Delete user | Admin |
+
+### 🛍 Product APIs
+| Method | Endpoint | Description | Role |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/products` | Add new product | Admin |
+| `GET` | `/api/products` | Get all products | Public |
+| `GET` | `/api/products/{id}` | Get product by ID | Public |
+| `PUT` | `/api/products/{id}` | Update product | Admin |
+| `DELETE` | `/api/products/{id}` | Delete product | Admin |
+
+### 🛒 Cart APIs
+| Method | Endpoint | Description | Role |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/cart/add/{productId}?userId={id}` | Add product to cart | Customer |
+| `PUT` | `/api/cart/update/{productId}?userId={id}` | Update quantity | Customer |
+| `DELETE` | `/api/cart/remove/{productId}?userId={id}` | Remove product | Customer |
+| `GET` | `/api/cart?userId={id}` | Get cart items | Customer |
+
+### 📦 Order APIs
+| Method | Endpoint | Description | Role |
+| :--- | :--- | :--- | :--- |
+| `POST` | `/api/orders/checkout?userId={id}` | Checkout cart | Customer |
+| `GET` | `/api/orders?userId={id}` | Get user orders | Customer |
+| `GET` | `/api/orders/{id}` | Get specific order | Customer |
+| `PUT` | `/api/orders/{id}/status?status=SHIPPED` | Update order status | Admin |
+
+---
+
+## 🧮 Database Schema
+
+### Users
+| Field | Type | Description |
+| :--- | :--- | :--- |
+| `id` | `BIGINT (PK)` | Unique user ID |
+| `name` | `VARCHAR` | User name |
+| `email` | `VARCHAR` | User email |
+| `password` | `VARCHAR` | Encrypted password |
+| `role` | `ENUM(ADMIN, CUSTOMER)` | Role |
+
+### Products
+| Field | Type |
+| :--- | :--- |
+| `id` | `BIGINT (PK)` |
+| `name` | `VARCHAR` |
+| `description` | `TEXT` |
+| `price` | `DOUBLE` |
+| `stock` | `INT` |
+| `category` | `VARCHAR` |
+| `image_url` | `VARCHAR` |
+| `rating` | `DOUBLE` |
+
+### Cart
+| Field | Type |
+| :--- | :--- |
+| `id` | `BIGINT (PK)` |
+| `user_id` | `BIGINT (FK → users.id)` |
+| `total_price` | `DOUBLE` |
+
+### CartItem
+| Field | Type |
+| :--- | :--- |
+| `id` | `BIGINT (PK)` |
+| `cart_id` | `BIGINT (FK → cart.id)` |
+| `product_id` | `BIGINT (FK → products.id)` |
+| `quantity` | `INT` |
+
+### Orders
+| Field | Type |
+| :--- | :--- |
+| `id` | `BIGINT (PK)` |
+| `user_id` | `BIGINT (FK → users.id)` |
+| `total_amount` | `DOUBLE` |
+| `order_date` | `DATETIME` |
+| `payment_status` | `ENUM(SUCCESS, FAILED)` |
+| `order_status` | `ENUM(PLACED, SHIPPED, DELIVERED, CANCELLED)` |
+
+### OrderItem
+| Field | Type |
+| :--- | :--- |
+| `id` | `BIGINT (PK)` |
+| `order_id` | `BIGINT (FK → orders.id)` |
+| `product_id` | `BIGINT (FK → products.id)` |
+| `quantity` | `INT` |
+| `price` | `DOUBLE` |
+
+---
+
+## 🧪 Testing
+
+### ✅ Run Unit Tests
+```bash
+mvn test
